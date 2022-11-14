@@ -1,0 +1,13 @@
+.TH UNISHELL 7 "November 2022" "ALX" "0x15. C - Simple Shell"
+.SH NAME
+.B unishell\fR \- simple UNIX command interpreter
+
+.SH SYNOPSIS
+.B unishell\fR [\fIfilename\fR]
+
+.SH DESCRIPTION
+.B unishell\fR is a simple UNIX command language interpreter that reads commands from either a file or standard input and executes them.
+
+.B Environment
+\fBunishell\fR receives and copies environment parent process uopn execution.
+
