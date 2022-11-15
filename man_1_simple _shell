@@ -11,3 +11,97 @@
 .B Environment
 \fBunishell\fR receives and copies environment parent process uopn execution.
 
+.B Variable Replacement
+.in +2n
+.B unishell\fR inerprets the \fI$\fR character for variable replacement:
+
+.RS
+.B $ENV_VARIABLE\fR	\fIENV_VARIABLE\fR is subsituted with its value.
+.RE
+
+.RS
+.B $?\fR			\fI?\fR is substituted with the return value of the last program executed.
+.RE
+
+.RS
+.B $$\FR			The second \fI$\fR is substituted with the current process ID.
+.RE
+
+.B Exit Status
+.in +2n
+.B unishell\fR returns the exit status of the last command executed, unless a syntax error occurs, with zero indicating success and non-zero indicating failure.
+
+If a command is not found, the return status is 127; if a command is found but is not executable, the return status is 126.
+
+All builtins return zero on success and one or two on incorrect usage (indicated by a corresponding error message).
+.in
+
+.B Shellby Builtin Commands
+.in +2n
+
+.RS
+.B cd
+.RS
+Usage: .B cd [DIRECTORY]
+
+Changes the current directory of the process to \fBDIRECTORY\fR.
+
+If no argument is given, the command is interpreted as \fBcd $HOME\fR.
+
+If the argument \fB-\fR is given, the command is interpreted as \fBcd $OLDPWD\fR.
+
+The environment variables \fBPWD\fR and \fBOLDPWD\fR are updated after a change of directory.
+.RE
+
+.B alias
+.RS
+Usage: \fBalias [NAME[='VALUE'] ...]\fR
+
+Handles aliases.
+
+.I alias\fR: Prints a list of all aliases, one per line, in the form \fINAME='VALUE'\fR.
+
+.I alias NAME [NAME2 ...]\fR: Prints the aliases \fINAME\fR, \fINAME2\fR, etc. one per line, in the form \fINAME='VALUE'\fR.
+
+.I alias NAME='VALUE' [...]\fR: Defines an alias for each \fINAME\fR whose \fIVALUE\fR is given.
+If \fIname\fR is already an alias, its value is replaced with \fIVALUE\fR.
+.RE
+
+.B exit
+.RS
+Usage: \fBexit [STATUS]\fR
+
+Exits the shell.
+
+The \fBSTATUS\fR argument is the integer used to exit the shell.
+
+If no argument is given, the command is interpreted as \fBexit 0\fR.
+.RE
+
+.B env
+.RS
+Usage: \fBenv\fR
+
+Prints the current environment.
+.RE
+
+.B setenv
+.RS
+Usage: \fBsetenv [VARIABLE] [VALUE]\fR
+
+Initializes a new environment variable, or modifies an existing one.
+
+Upon failure, prints a message to \fBstderr\fR
+.RE
+
+.B unsetenv
+.RS
+Usage: \fBunsetenv [VARIABLE]\fR
+
+Removes an environmental variable.
+
+Upon failure, prints a message to \fBstderr\fR.
+.RE
+.RE
+.in
+
