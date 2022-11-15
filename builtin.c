@@ -1,18 +1,18 @@
 #include "shell.h"
 /*
  * File: builtin.c
- * Auth: Alex Yu
- *       Brennan D Baraban
+ * Authors: Liza Thembekile
+ *          Ntando Busakwe
  */
 
 int (*get_builtin(char *command))(char **args, char **front);
-int shellby_exit(char **args, char **front);
-int shellby_cd(char **args, char __attribute__((__unused__)) **front);
-int shellby_help(char **args, char __attribute__((__unused__)) **front);
+int unishell_exit(char **args, char **front);
+int unishell_cd(char **args, char __attribute__((__unused__)) **front);
+int unishell_help(char **args, char __attribute__((__unused__)) **front);
 
 /**
  * get_builtin - Matches a command with a corresponding
- *               shellby builtin function.
+ *               unishell builtin function.
  * @command: The command to match.
  *
  * Return: A function pointer to the corresponding builtin.
@@ -20,13 +20,13 @@ int shellby_help(char **args, char __attribute__((__unused__)) **front);
 int (*get_builtin(char *command))(char **args, char **front)
 {
 	builtin_t funcs[] = {
-		{ "exit", shellby_exit },
-		{ "env", shellby_env },
-		{ "setenv", shellby_setenv },
-		{ "unsetenv", shellby_unsetenv },
-		{ "cd", shellby_cd },
-		{ "alias", shellby_alias },
-		{ "help", shellby_help },
+		{ "exit", unishell_exit },
+		{ "env", unishell_env },
+		{ "setenv", unishell_setenv },
+		{ "unsetenv", unishell_unsetenv },
+		{ "cd", unishell_cd },
+		{ "alias", unishell_alias },
+		{ "help", unishell_help },
 		{ NULL, NULL }
 	};
 	int i;
@@ -40,8 +40,8 @@ int (*get_builtin(char *command))(char **args, char **front)
 }
 
 /**
- * shellby_exit - Causes normal process termination
- *                for the shellby shell.
+ * unishell_exit - Causes normal process termination
+ *                for the unishell shell.
  * @args: An array of arguments containing the exit value.
  * @front: A double pointer to the beginning of args.
  *
@@ -51,7 +51,7 @@ int (*get_builtin(char *command))(char **args, char **front)
  *
  * Description: Upon returning -3, the program exits back in the main function.
  */
-int shellby_exit(char **args, char **front)
+int unishell_exit(char **args, char **front)
 {
 	int i, len_of_int = 10;
 	unsigned int num = 0, max = 1 << (sizeof(int) * 8 - 1);
@@ -85,7 +85,7 @@ int shellby_exit(char **args, char **front)
 }
 
 /**
- * shellby_cd - Changes the current directory of the shellby process.
+ * unishell_cd - Changes the current directory of the unishell process.
  * @args: An array of arguments.
  * @front: A double pointer to the beginning of args.
  *
@@ -93,7 +93,7 @@ int shellby_exit(char **args, char **front)
  *         If an error occurs - -1.
  *         Otherwise - 0.
  */
-int shellby_cd(char **args, char __attribute__((__unused__)) **front)
+int unishell_cd(char **args, char __attribute__((__unused__)) **front)
 {
 	char **dir_info, *new_line = "\n";
 	char *oldpwd = NULL, *pwd = NULL;
@@ -147,7 +147,7 @@ int shellby_cd(char **args, char __attribute__((__unused__)) **front)
 
 	dir_info[0] = "OLDPWD";
 	dir_info[1] = oldpwd;
-	if (shellby_setenv(dir_info, dir_info) == -1)
+	if (unishell_setenv(dir_info, dir_info) == -1)
 		return (-1);
 
 	dir_info[0] = "PWD";
@@ -166,14 +166,14 @@ int shellby_cd(char **args, char __attribute__((__unused__)) **front)
 }
 
 /**
- * shellby_help - Displays information about shellby builtin commands.
+ * unishell_help - Displays information about unishell builtin commands.
  * @args: An array of arguments.
  * @front: A pointer to the beginning of args.
  *
  * Return: If an error occurs - -1.
  *         Otherwise - 0.
  */
-int shellby_help(char **args, char __attribute__((__unused__)) **front)
+int unishell_help(char **args, char __attribute__((__unused__)) **front)
 {
 	if (!args[0])
 		help_all();
