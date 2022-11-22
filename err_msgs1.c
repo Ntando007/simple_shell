@@ -1,4 +1,4 @@
-*
+/*
  * File: err_msgs1.c
  * Auth: Ntando Busakwe
  *       Liza Thembekile
