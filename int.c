@@ -206,4 +206,4 @@ int check_args(char **args)
 				return (create_error(&args[i + 1], 2));
 		}
 	}
-	
+}
