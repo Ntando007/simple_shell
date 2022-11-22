@@ -1,10 +1,9 @@
-#include "shell.h"
 /*
  * File: builtin.c
  * Authors: Liza Thembekile
  *          Ntando Busakwe
  */
-
+#include "shell.h"
 int (*get_builtin(char *command))(char **args, char **front);
 int unishell_exit(char **args, char **front);
 int unishell_cd(char **args, char __attribute__((__unused__)) **front);
